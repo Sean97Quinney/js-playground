@@ -1,0 +1,39 @@
+/** @type {{id:string, title:string, completed:boolean}[]} */
+let items = [
+    {id: "1", title: "learn DOM", completed: true},
+    {id: "2", title: "render items", completed: false},
+    {id: "3", title: "learn javascript", completed: false}
+];
+
+const statusEl = document.getElementById("status");
+const listEl = document.getElementById("list");
+
+function itemToHTML(item) {
+    return `
+        <li data-id="${item.id}">
+            <input type="checkbox" ${item.completed ? "checked " : ""} />
+            <div>${item.title}</div>
+        </li>
+    `;
+    
+}
+
+function render() {
+    listEl.innerHTML = items.map(itemToHTML).join("");
+
+    const remaining = items.filter((i) => !i.completed).length;
+    statusEl.textContent = `${remaining} item${remaining !== 1 ? "s" : ""}`;
+}
+
+render();
+
+
+
+
+// // render a couple of static items
+// listEl.innerHTML = `
+//   <li>learn DOM</li>
+//   <li>render items</li>
+//   <li>learn javascript</li>
+// `;
+// statusEl.textContent = "3 items";
