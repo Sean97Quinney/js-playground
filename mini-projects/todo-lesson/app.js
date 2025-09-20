@@ -26,6 +26,16 @@ formEl.addEventListener("submit", (e) => {
     render();
 })
 
+document.getElementById("list").addEventListener("change", (e) =>{
+    if (e.target.matches('input[type="checkbox"]')){
+        const li = e.target.closest("li");
+        const id = li.dataset.id;
+        const item = items.find(i => i.id === id);
+        item.completed = e.target.checked;
+        render()
+    }
+});
+
 function itemToHTML(item) {
     return `
         <li data-id="${item.id}">
