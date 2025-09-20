@@ -8,6 +8,24 @@ let items = [
 const statusEl = document.getElementById("status");
 const listEl = document.getElementById("list");
 
+const formEl = document.getElementById("new-todo");
+const inputEl = document.getElementById("todo-input");
+const addButton = formEl.querySelector("button");
+addButton.disabled = true;
+
+inputEl.addEventListener("input", () => {
+    addButton.disabled = inputEl.value.trim() === "";
+});
+
+formEl.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const title = inputEl.value.trim();
+    if (!title) return;
+    items.push({id: crypto.randomUUID(), title, completed: false});
+    inputEl.value = "";
+    render();
+})
+
 function itemToHTML(item) {
     return `
         <li data-id="${item.id}">
